@@ -31,7 +31,6 @@
     }
     .active { display: flex; }
 
-    /* ใส่ URL ภาพออนไลน์ที่ใกล้เคียงที่สุด */
     #p1 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/17495251769796844223_0'); }
     #p2 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/13765894182983851711_0'); }
     #p3 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/3002671226661572042_0'); }
@@ -47,7 +46,7 @@
         border-radius: 20px;
         max-width: 90%;
         line-height: 1.6;
-        backdrop-filter: blur(2px); /* เพิ่มความสวยงามบน Safari */
+        backdrop-filter: blur(2px);
     }
 
     .btn-container {
@@ -74,12 +73,48 @@
 
     #text { transition: opacity 1s ease-in-out; opacity: 0; }
     #text.show { opacity: 1; }
+
+    .emoji-bg{
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .final-text{
+        color: black;
+        background: rgba(255,255,255,0.15);
+        box-shadow: none;
+        position: relative;
+        z-index: 2;
+    }
+
+    .love-emoji{
+        position: absolute;
+        user-select: none;
+        will-change: transform;
+        animation-name: bounceAround;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        opacity: 0.9;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08));
+    }
+
+    @keyframes bounceAround {
+        0%   { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+        20%  { transform: translate(18px, -24px) scale(1.08) rotate(-6deg); }
+        40%  { transform: translate(-16px, -42px) scale(0.96) rotate(6deg); }
+        60%  { transform: translate(22px, 12px) scale(1.1) rotate(-4deg); }
+        80%  { transform: translate(-20px, 26px) scale(0.98) rotate(5deg); }
+        100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+    }
 </style>
 </head>
 <body>
 
 <div id="p1" class="page active">
-    <h2>สวัสดีโลมา วันนี้เป็นอย่างไรบ้าง?</h2>
+    <h2>สวัสดีโลมา วันนี้เป็นไงบ้าง? HBD นะคะ</h2>
     <div class="btn-container">
         <button class="btn-normal" onclick="next()">ปกตินะ</button>
         <button class="btn-good" onclick="next()">ดีมากเลย</button>
@@ -87,7 +122,7 @@
 </div>
 
 <div id="p2" class="page">
-    <h2>โตขึ้นมากเลยนะโลมา จากเด็กน้อยในวันนั้น เติบโตมาเป็นคนเก่งในวันนี้</h2>
+    <h2>โตขึ้นมากเลยนะโลมา จากเด็กน้อยในวันนั้น เติบโตมาเป็นคนสวยและเก่งในวันนี้</h2>
 </div>
 
 <div id="p3" class="page">
@@ -95,15 +130,16 @@
 </div>
 
 <div id="p4" class="page pink-bg">
-    <h2>โมรักโลมานะ เป็นแฟนกันไม๊?</h2>
+    <h2>รักโลมาน้าา เป็นแฟนกันไม๊?</h2>
     <div class="btn-container" style="position:relative; width:100%; height:100px; justify-content:center; align-items:center;">
-        <button class="btn-green" onclick="next()">เป็นค่ะ</button>
-        <button class="btn-red" id="no">อาจจะยัง</button>
+        <button class="btn-green" onclick="next()">เป็นค่ะ!</button>
+        <button class="btn-red" id="no">อาจจะยังนะ</button>
     </div>
 </div>
 
 <div id="p5" class="page pink-bg">
-    <h2 style="color:black; background:none; box-shadow:none;">ขอแสดงความยินดีด้วย คุณไม่โสดแล้ว สุขสันต์วันเกิดนะคะ</h2>
+    <div class="emoji-bg" id="emoji-bg"></div>
+    <h2 class="final-text">ขอแสดงความยินดีด้วยคุณโลมา คุณไม่โสดแล้วววว!! รักคั๊บ!</h2>
 </div>
 
 <script>
@@ -162,9 +198,39 @@ function moveBtn(e){
 }
 noBtn.addEventListener('touchstart', moveBtn, {passive: false});
 noBtn.addEventListener('mouseover', moveBtn);
+
+function createLoveEmojiBackground() {
+    const container = document.getElementById('emoji-bg');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    const emojis = ['🥰', '😍', '😊', '💖', '💕', '💗'];
+    const total = 18;
+
+    for (let i = 0; i < total; i++) {
+        const item = document.createElement('span');
+        item.className = 'love-emoji';
+        item.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        const size = 22 + Math.random() * 20;
+        const duration = 3.5 + Math.random() * 3.5;
+        const delay = Math.random() * 2;
+
+        item.style.left = left + '%';
+        item.style.top = top + '%';
+        item.style.fontSize = size + 'px';
+        item.style.animationDuration = duration + 's';
+        item.style.animationDelay = delay + 's';
+
+        container.appendChild(item);
+    }
+}
+
+createLoveEmojiBackground();
+window.addEventListener('resize', createLoveEmojiBackground);
 </script>
 </body>
 </html>
-
-
-
