@@ -5,38 +5,70 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Happy Birthday & Love</title>
 <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
     * { box-sizing: border-box; }
-    body { 
-        margin: 0; 
-        font-family: 'Mali', sans-serif; 
-        text-align: center; 
-        overflow: hidden; 
+
+    html, body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        font-family: 'Mali', sans-serif;
+        text-align: center;
         background-color: #f9f9f9;
     }
-    
-    .page { 
-        display: none; 
-        height: 100vh; 
+
+    .page {
+        display: none;
+        position: fixed;
+        inset: 0;
         width: 100vw;
-        justify-content: center; 
-        align-items: center; 
-        flex-direction: column; 
+        height: 100vh;
+        height: 100dvh;
+        min-height: 100svh;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
         padding: 20px;
-        position: absolute;
-        top: 0; left: 0;
         background-size: cover;
-        background-position: center;
+        background-position: center center;
         background-repeat: no-repeat;
+        overflow: hidden;
     }
-    .active { display: flex; }
 
-         #p1 { background-image: url('https://i.postimg.cc/xdL1NZCP/PPLM_01.png'); }
-         #p2 { background-image: url('https://i.postimg.cc/QMcdKztg/PPLM_02.png'); }
-         #p3 { background-image: url('https://i.postimg.cc/s25gGLX9/PPLM_03.png'); }
+    .active {
+        display: flex;
+    }
 
-         .pink-bg { background-color: #ffd1dc; }
-         .white-bg { background-color: #ffffff; }
+    /* fallback color ถ้ารูปโหลดช้า */
+    #p1, #p2, #p3 {
+        background-color: #ffe7ef;
+    }
+
+    #p1 {
+        background-image: url('https://i.postimg.cc/xdL1NZCP/PPLM_01.png');
+    }
+
+    #p2 {
+        background-image: url('https://i.postimg.cc/QMcdKztg/PPLM_02.png');
+    }
+
+    #p3 {
+        background-image: url('https://i.postimg.cc/s25gGLX9/PPLM_03.png');
+    }
+
+    .pink-bg { background-color: #ffd1dc; }
+    .white-bg { background-color: #ffffff; }
+
+    /* ทำให้ข้อความ/ปุ่มอยู่เหนือพื้นหลังแน่นอน */
+    .page > * {
+        position: relative;
+        z-index: 2;
+    }
 
     h2 {
         font-size: 22px;
@@ -48,12 +80,17 @@
         max-width: 90%;
         line-height: 1.6;
         backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        margin: 0;
     }
 
     .btn-container {
         display: flex;
         gap: 15px;
         margin-top: 20px;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
     }
 
     button {
@@ -65,17 +102,33 @@
         border-radius: 25px;
         cursor: pointer;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
     }
 
     .btn-normal { background: #ffffff; color: #333; border: 1px solid #ddd; }
     .btn-good { background: #ffb6c1; color: #fff; }
     .btn-green { background: #4CAF50; color: white; }
-    .btn-red { background: #f44336; color: white; }
+    .btn-red { background: #f44336; color: white; z-index: 10; }
 
-    #text { transition: opacity 1s ease-in-out; opacity: 0; }
-    #text.show { opacity: 1; }
+    #text {
+        transition: opacity 1s ease-in-out;
+        opacity: 0;
+        min-height: 3.2em;
+    }
 
-    .emoji-bg{
+    #text.show {
+        opacity: 1;
+    }
+
+    /* ซ่อนกล่องข้อความหน้า 3 ตอนยังไม่มีข้อความ */
+    #text:empty {
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .emoji-bg {
         position: absolute;
         inset: 0;
         overflow: hidden;
@@ -83,15 +136,15 @@
         z-index: 0;
     }
 
-    .final-text{
+    .final-text {
         color: black;
-        background: rgba(255,255,255,0.15);
+        background: rgba(255,255,255,0.2);
         box-shadow: none;
         position: relative;
         z-index: 2;
     }
 
-    .love-emoji{
+    .love-emoji {
         position: absolute;
         user-select: none;
         will-change: transform;
@@ -122,17 +175,17 @@
     </div>
 </div>
 
-<div id="p2" class="page active">
+<div id="p2" class="page">
     <h2>โตขึ้นมากเลยนะโลมา จากเด็กน้อยในวันนั้น เติบโตมาเป็นคนสวยและเก่งในวันนี้</h2>
 </div>
 
-<div id="p3" class="page active">
+<div id="p3" class="page">
     <h2 id="text"></h2>
 </div>
 
 <div id="p4" class="page pink-bg">
     <h2>รักโลมาน้าา เป็นแฟนกันไม๊?</h2>
-    <div class="btn-container" style="position:relative; width:100%; height:100px; justify-content:center; align-items:center;">
+    <div class="btn-container" style="position:relative; width:100%; height:120px;">
         <button class="btn-green" onclick="next()">เป็นค่ะ!</button>
         <button class="btn-red" id="no">อาจจะยังนะ</button>
     </div>
@@ -146,59 +199,78 @@
 <script>
 let current = 1;
 
-function show(n){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  let target = document.getElementById('p'+n);
-  if(target) target.classList.add('active');
-}
+function show(n) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('p' + n);
+    if (target) target.classList.add('active');
 
-function next(){
-  current++;
-  show(current);
-  if(current === 2){
-      setTimeout(() => { if(current === 2) next(); }, 2000);
-  } else if(current === 3){
-      startText(); 
-  }
-}
-
-function startText(){
-  const lines = [
-    "25 ขวบแล้วสินะคนเก่ง ขอบคุณพ่อแม่โลมาที่ทำให้มีโลมาที่น่ารักบนโลกใบนี้",
-    "ขอบคุณโลมาที่ดูแลตัวเองมาอย่างดีเสมอ ตลอด 24 ปีที่ผ่านมา.. ขอให้โลมามีความสุขตลอดไป",
-    "หลังจากนี้.. เราขอดูแลโลมาได้ไม๊?.."
-  ];
-  let i = 0;
-  const el = document.getElementById('text');
-  
-  function fadeLoop(){
-    if(i >= lines.length){ 
-        setTimeout(next, 1500); 
-        return;
+    if (n === 5) {
+        createLoveEmojiBackground();
     }
-    el.innerText = lines[i++];
-    el.classList.add('show');
-    setTimeout(() => {
-        el.classList.remove('show');
-        setTimeout(fadeLoop, 1000);
-    }, 8000);
-  }
-  setTimeout(fadeLoop, 500);
+}
+
+function next() {
+    if (current >= 5) return;
+
+    current++;
+    show(current);
+
+    if (current === 2) {
+        setTimeout(() => {
+            if (current === 2) next();
+        }, 2000);
+    } else if (current === 3) {
+        startText();
+    }
+}
+
+function startText() {
+    const lines = [
+        "25 ขวบแล้วสินะคนเก่ง ขอบคุณพ่อแม่โลมาที่ทำให้มีโลมาที่น่ารักบนโลกใบนี้",
+        "ขอบคุณโลมาที่ดูแลตัวเองมาอย่างดีเสมอ ตลอด 24 ปีที่ผ่านมา.. ขอให้โลมามีความสุขตลอดไป",
+        "หลังจากนี้.. เราขอดูแลโลมาได้ไม๊?.."
+    ];
+
+    let i = 0;
+    const el = document.getElementById('text');
+
+    function fadeLoop() {
+        if (i >= lines.length) {
+            setTimeout(next, 1500);
+            return;
+        }
+
+        el.textContent = lines[i++];
+        el.classList.add('show');
+
+        setTimeout(() => {
+            el.classList.remove('show');
+            setTimeout(fadeLoop, 1000);
+        }, 8000);
+    }
+
+    setTimeout(fadeLoop, 500);
 }
 
 const noBtn = document.getElementById('no');
-function moveBtn(e){
-  if(e.type === 'touchstart') e.preventDefault(); 
-  const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-  const maxY = window.innerHeight - noBtn.offsetHeight - 20;
-  const x = Math.max(20, Math.random() * maxX);
-  const y = Math.max(20, Math.random() * maxY);
-  noBtn.style.position = 'fixed';
-  noBtn.style.left = x + 'px';
-  noBtn.style.top = y + 'px';
+
+function moveBtn(e) {
+    if (e.type === 'touchstart') e.preventDefault();
+
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+    const x = Math.max(20, Math.random() * maxX);
+    const y = Math.max(20, Math.random() * maxY);
+
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
 }
-noBtn.addEventListener('touchstart', moveBtn, {passive: false});
+
+noBtn.addEventListener('touchstart', moveBtn, { passive: false });
 noBtn.addEventListener('mouseover', moveBtn);
+noBtn.addEventListener('click', moveBtn);
 
 function createLoveEmojiBackground() {
     const container = document.getElementById('emoji-bg');
@@ -216,7 +288,7 @@ function createLoveEmojiBackground() {
 
         const left = Math.random() * 100;
         const top = Math.random() * 100;
-        const size = 22+ Math.random() * 20;
+        const size = 22 + Math.random() * 20;
         const duration = 3.5 + Math.random() * 3.5;
         const delay = Math.random() * 2;
 
@@ -230,8 +302,10 @@ function createLoveEmojiBackground() {
     }
 }
 
-createLoveEmojiBackground();
-window.addEventListener('resize', createLoveEmojiBackground);
+window.addEventListener('resize', () => {
+    if (current === 5) createLoveEmojiBackground();
+});
 </script>
+
 </body>
 </html>
