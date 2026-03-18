@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Happy Birthday & Love</title>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    * { box-sizing: border-box; }
+    body { 
+        margin: 0; 
+        font-family: 'Mali', sans-serif; 
+        text-align: center; 
+        overflow: hidden; 
+        background-color: #f9f9f9;
+    }
+    
+    .page { 
+        display: none; 
+        height: 100vh; 
+        width: 100vw;
+        justify-content: center; 
+        align-items: center; 
+        flex-direction: column; 
+        padding: 20px;
+        position: absolute;
+        top: 0; left: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .active { display: flex; }
+
+    /* ใส่ URL ภาพออนไลน์ที่ใกล้เคียงที่สุด */
+    #p1 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/17495251769796844223_0'); }
+    #p2 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/13765894182983851711_0'); }
+    #p3 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/3002671226661572042_0'); }
+    .pink-bg { background-color: #ffd1dc; }
+    .white-bg { background-color: #ffffff; }
+
+    h2 {
+        font-size: 22px;
+        color: #333;
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 15px 25px;
+        border-radius: 20px;
+        max-width: 90%;
+        line-height: 1.6;
+        backdrop-filter: blur(2px); /* เพิ่มความสวยงามบน Safari */
+    }
+
+    .btn-container {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 12px 24px;
+        font-size: 18px;
+        font-family: 'Mali', sans-serif;
+        font-weight: 600;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn-normal { background: #ffffff; color: #333; border: 1px solid #ddd; }
+    .btn-good { background: #ffb6c1; color: #fff; }
+    .btn-green { background: #4CAF50; color: white; }
+    .btn-red { background: #f44336; color: white; position: relative; z-index: 100; transition: none; }
+
+    #text { transition: opacity 1s ease-in-out; opacity: 0; }
+    #text.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div id="p1" class="page active">
+    <h2>สวัสดีโลมา วันนี้เป็นอย่างไรบ้าง?</h2>
+    <div class="btn-container">
+        <button class="btn-normal" onclick="next()">ปกตินะ</button>
+        <button class="btn-good" onclick="next()">ดีมากเลย</button>
+    </div>
+</div>
+
+<div id="p2" class="page">
+    <h2>โตขึ้นมากเลยนะโลมา จากเด็กน้อยในวันนั้น เติบโตมาเป็นคนเก่งในวันนี้</h2>
+</div>
+
+<div id="p3" class="page">
+    <h2 id="text"></h2>
+</div>
+
+<div id="p4" class="page pink-bg">
+    <h2>โมรักโลมานะ เป็นแฟนกันไม๊?</h2>
+    <div class="btn-container" style="position:relative; width:100%; height:100px; justify-content:center; align-items:center;">
+        <button class="btn-green" onclick="next()">เป็นค่ะ</button>
+        <button class="btn-red" id="no">อาจจะยัง</button>
+    </div>
+</div>
+
+<div id="p5" class="page pink-bg">
+    <h2 style="color:black; background:none; box-shadow:none;">ขอแสดงความยินดีด้วย คุณไม่โสดแล้ว สุขสันต์วันเกิดนะคะ</h2>
+</div>
+
+<script>
+let current = 1;
+
+function show(n){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  let target = document.getElementById('p'+n);
+  if(target) target.classList.add('active');
+}
+
+function next(){
+  current++;
+  show(current);
+  if(current === 2){
+      setTimeout(() => { if(current === 2) next(); }, 4000);
+  } else if(current === 3){
+      startText(); 
+  }
+}
+
+function startText(){
+  const lines = [
+    "25 ขวบแล้วสินะคนเก่ง ขอบคุณพ่อแม่โลมาที่ทำให้มีโลมาที่น่ารักบนโลกใบนี้",
+    "ขอบคุณโลมาที่ดูแลตัวเองมาอย่างดีเสมอ ตลอด 24 ปีที่ผ่านมา.. ขอให้โลมามีความสุขตลอดไป",
+    "หลังจากนี้.. เราขอดูแลเธอด้วยคนได้ไหม? เราอยากตื่นมาหอมแก้มเทอทุกเช้าและก่อนนอน ทุกวัน.."
+  ];
+  let i = 0;
+  const el = document.getElementById('text');
+  
+  function fadeLoop(){
+    if(i >= lines.length){ 
+        setTimeout(next, 1500); 
+        return;
+    }
+    el.innerText = lines[i++];
+    el.classList.add('show');
+    setTimeout(() => {
+        el.classList.remove('show');
+        setTimeout(fadeLoop, 1000);
+    }, 8000);
+  }
+  setTimeout(fadeLoop, 500);
+}
+
+const noBtn = document.getElementById('no');
+function moveBtn(e){
+  if(e.type === 'touchstart') e.preventDefault(); 
+  const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+  const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+  const x = Math.max(20, Math.random() * maxX);
+  const y = Math.max(20, Math.random() * maxY);
+  noBtn.style.position = 'fixed';
+  noBtn.style.left = x + 'px';
+  noBtn.style.top = y + 'px';
+}
+noBtn.addEventListener('touchstart', moveBtn, {passive: false});
+noBtn.addEventListener('mouseover', moveBtn);
+</script>
+</body>
+</html>
+
+
+
