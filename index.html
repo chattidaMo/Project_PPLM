@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Happy Birthday & Love</title>
+<title>ไปใส่เอาเอง</title>
 <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -58,9 +58,9 @@
         background-color: #ffe7ef;
     }
 
-    #p1 { background-image: url('https://i.postimg.cc/xdL1NZCP/PPLM_01.png'); }
-    #p2 { background-image: url('https://i.postimg.cc/QMcdKztg/PPLM_02.png'); }
-    #p3 { background-image: url('https://i.postimg.cc/VN3svw51/PPLM-03-2.png'); }
+    #p1 { background-image: url(''); }
+    #p2 { background-image: url(''); }
+    #p3 { background-image: url(''); }
 
     .pink-bg { background-color: #ffd1dc; }
     .white-bg { background-color: #ffffff; }
@@ -81,7 +81,7 @@
         -webkit-backdrop-filter: blur(2px);
     }
 
-    /* หน้า 2 และ 3 โปร่งใสขึ้น */
+    
     #p2 h2,
     #p3 h2 {
         background: rgba(255, 255, 255, 0.9);
@@ -190,34 +190,34 @@
 <body>
 
 <div id="p1" class="page active">
-    <h2>สวัสดีโลมา วันนี้เป็นไงบ้าง? HBD นะคะ</h2>
+    <h2>(ใส่ข้อความหน้าแรกตรงนนี้นะ)</h2> 
     <div class="btn-container">
-        <button class="btn-normal" onclick="next()">ปกตินะ</button>
-        <button class="btn-good" onclick="next()">ดีมากเลย</button>
+        <button class="btn-normal" onclick="next()">บอกรัก1</button>
+        <button class="btn-good" onclick="next()">บอกรัก2</button>
     </div>
 </div>
 
 <div id="p2" class="page">
-    <h2>โตขึ้นมากเลยนะโลมา จากเด็กน้อยในวันนั้น เติบโตมาเป็นคนสวยและเก่งในวันนี้</h2>
-    <div class="tap-hint">แตะหน้าจอเพื่อไปต่อ</div>
+    <h2>(ใส่ข้อความหน้าที่สองตรงนี้นาาาจาาาา)</h2>
+    <div class="tap-hint">แตะหน้าจอเพื่อไปต่อว</div>
 </div>
 
 <div id="p3" class="page">
     <h2 id="text"></h2>
-    <div class="tap-hint">แตะหน้าจอเพื่ออ่านต่อนะ</div>
+    <div class="tap-hint">แตะหน้าจอเพื่ออ่านต่อว</div>
 </div>
 
 <div id="p4" class="page pink-bg">
-    <h2>โลมา..เป็นแฟนกันไม๊?</h2>
+    <h2>(ใส่ข้อความขอเป็นแฟน)</h2>
     <div class="btn-container" style="width:100%; height:120px;">
-        <button class="btn-green" onclick="next()">เป็นคั๊บ!</button>
-        <button class="btn-red" id="no">อาจจะยัง</button>
+        <button class="btn-green" onclick="next()">เป็น!</button>
+        <button class="btn-red" id="no">ไม่เป็น</button>
     </div>
 </div>
 
 <div id="p5" class="page pink-bg">
     <div class="emoji-bg" id="emoji-bg"></div>
-    <h2 class="final-text">ขอแสดงความยินดีด้วยคุณโลมา คุณไม่โสดแล้วววว!! รักคั๊บ!</h2>
+    <h2 class="final-text">ยินดีด้วย คุณได้ผัวใหม่แล้ว!!!</h2>
 </div>
 
 <script>
@@ -226,9 +226,9 @@ let page3Index = 0;
 let page3Busy = false;
 
 const page3Lines = [
-    "25 ขวบแล้วสินะคนเก่ง ขอบคุณพ่อแม่โลมาที่ทำให้มีโลมาที่น่ารักบนโลกใบนี้",
-    "ขอบคุณโลมาที่ดูแลตัวเองมาอย่างดีเสมอ ตลอด 24 ปีที่ผ่านมา.. ขอให้โลมามีความสุขตลอดไป",
-    "หลังจากนี้.. เราขอดูแลโลมาด้วยคนได้ไม๊? เราอยากอุ่นเธอไปจนแก่"
+    "เขียนข้อความบอกรักตรงนี้",
+    "เขียนอีก",
+    "ยังไม่พอ เอาอีกเขียนอีก"
 ];
 
 function show(n) {
@@ -333,7 +333,7 @@ function createLoveEmojiBackground() {
 
     container.innerHTML = '';
 
-    const emojis = ['🥰', '😍', '😊', '💖', '💕', '💗'];
+    const emojis = ['🥰','😍', '😊'];
     const total = 10;
 
     for (let i = 0; i < total; i++) {
